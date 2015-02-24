@@ -16,6 +16,7 @@ twitter_request_token_url = 'https://api.twitter.com/oauth/request_token'
 twitter_access_token_url = 'https://api.twitter.com/oauth/access_token'
 
 google_authorize_url = 'https://accounts.google.com/o/oauth2/auth'
+google_authorize_scope = 'https://www.googleapis.com/auth/analytics.readonly'
 google_access_token_url = 'https://accounts.google.com/o/oauth2/token'
 
 app = Flask(__name__)
@@ -117,7 +118,7 @@ def authorize_google(client_id, client_secret, redirect_uri, state):
     session['state'] = state
     
     query_string = urlencode(dict(client_id=client_id, redirect_uri=redirect_uri,
-                                  scope='profile', state=state, response_type='code',
+                                  scope=google_authorize_scope, state=state, response_type='code',
                                   access_type='offline', approval_prompt='force'))
     
     return redirect(google_authorize_url + '?' + query_string)
